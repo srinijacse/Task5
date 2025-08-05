@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SrinijaStore</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Welcome to Let's Shop!!</h1>
+    <nav>
+      <select id="categoryFilter">
+        <option value="all">All Categories</option>
+        <option value="furniture">Furniture</option>
+        <option value="laptops">Laptops</option>
+        <option value="fragrances">Fragrances</option>
+        <option value="groceries">Groceries</option>
+
+      </select>
+      <select id="sort">
+        <option value="default">Sort By</option>
+        <option value="priceLow">Price: Low to High</option>
+        <option value="priceHigh">Price: High to Low</option>
+      </select>
+      <a href="cart.html" id="cartIcon" style="font-size: 1.5em; cursor: pointer; text-decoration: none;">🛒</a>
+      <a href="index.html" style="text-decoration: none; color: black;">Home</a>
+    </nav>
+  </header>
+
+  <main>
+    
+    <ul id="productList"></ul>
+    <div id="loading" style="display:none;">Loading...</div>
+    <div id="error" style="display:none;">Error loading products. Please try again later.</div>
+  </main>
+  <button id="loadMore" style="display:none;">Load More</button>
+  <div id="cartPanel" class="cart-panel">
+  <button id="closeCart" style="float: right; background: none; border: none; font-size: 1.2em; cursor: pointer; ">❌</button>
+  <h3>Your Cart</h3>
+  <ul id="cartList"></ul>
+  <p id="cartTotal" style="margin-top: 1em; font-weight: bold;">Total: ₹0</p>
+
+</div>
+
+
+
+
+  <footer>
+    <p>&copy; 2025 Let's Shop!!</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

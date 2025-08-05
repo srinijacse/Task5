@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Cart</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    .cart-item {
+      display: flex;
+      gap: 10px;
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+    }
+    .cart-item img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body style="background-color: antiquewhite;">
+  <h1 style="text-align: center;">Your Cart</h1>
+  <div id="cartItems"></div>
+  <h2 id="cartTotal">Total: ₹0</h2>
+
+ <script>
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  const cartContainer = document.getElementById("cartItems");
+  const totalBox = document.getElementById("cartTotal");
+
+  function renderCart() {
+    cartContainer.innerHTML = "";
+    let total = 0;
+
+    cart.forEach((item, index) => {
+      const div = document.createElement("div");
+      div.className = "cart-item";
+
+      div.innerHTML = `
+        <img src="${item.thumbnail}" alt="${item.title}">
+        <div style="flex: 1;">
+          <h3>${item.title}</h3>
+          <p>Qty: ${item.quantity}</p>
+          <p>₹${(item.price * 80 * item.quantity).toFixed(0)}</p>
+          <div>
+            <button onclick="decreaseQuantity(${index})" style="margin-right: 5px;">➖</button>
+            <button onclick="removeItem(${index})" style="background: red; color: white; border: none; padding: 3px 7px; cursor: pointer;">❌ Remove</button>
+          </div>
+        </div>
+      `;
+
+      cartContainer.appendChild(div);
+      total += item.price * item.quantity * 80;
+    });
+
+    totalBox.textContent = `Total: ₹${total.toFixed(0)}`;
+  }
+
+  function decreaseQuantity(index) {
+    if (cart[index].quantity > 1) {
+      cart[index].quantity -= 1;
+    } else {
+      // Optionally confirm before removing
+      if (confirm("Quantity is 1. Do you want to remove this item?")) {
+        cart.splice(index, 1);
+      }
+    }
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+  }
+
+  function removeItem(index) {
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+  }
+
+  renderCart();
+</script>
+<button onclick="window.location.href='index.html'" style="margin-top: 20px; display:block; margin:20px auto;padding: 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer;">Continue Shopping</button>
+
+</body>
+</html>
